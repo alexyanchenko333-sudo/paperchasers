@@ -11,12 +11,12 @@
 <header class="site">
   <div class="nav">
     <nav class="nav-left" id="navLinks">
-      <a href="paperchasers.html#catalog">CATALOG</a>
-      <a href="paperchasers.html#lookbook">LOOKBOOK</a>
-      <a href="paperchasers.html#about">ABOUT</a>
+      <a href="index.html#catalog">CATALOG</a>
+      <a href="index.html#lookbook">LOOKBOOK</a>
+      <a href="index.html#about">ABOUT</a>
     </nav>
     <div class="nav-center">
-      <a href="paperchasers.html" aria-label="PaperChasers home">
+      <a href="index.html" aria-label="PaperChasers home">
         <img src="logox2.png" alt="PaperChasers" class="logo-main">
       </a>
     </div>
@@ -89,7 +89,7 @@
       <h2>11. Contact</h2>
       <p>Questions about this policy or about your personal data can be sent to <span class="legal-placeholder">[EMAIL]</span> or <span class="legal-placeholder">[ТЕЛЕФОН]</span>.</p>
 
-      <a class="legal-back btn ghost" href="paperchasers.html">← Back to PaperChasers</a>
+      <a class="legal-back btn ghost" href="index.html">← Back to PaperChasers</a>
     </div>
   </div>
 </main>
@@ -126,7 +126,7 @@
   </div>
 </footer>
 
-<!-- CART DRAWER (same as paperchasers.html) -->
+<!-- CART DRAWER (same as index.html) -->
 <div class="overlay" id="overlay"></div>
 <div class="drawer" id="drawer" role="dialog" aria-label="Shopping cart">
   <div class="drawer-head">
@@ -144,14 +144,14 @@
 
 <script src="cart.js"></script>
 <script>
-  // Mobile menu (same as paperchasers.html)
+  // Mobile menu (same as index.html)
   document.getElementById('menuToggle').addEventListener('click', ()=>{
     document.getElementById('navLinks').classList.toggle('mobile-open');
   });
   document.querySelectorAll('#navLinks a').forEach(a=> a.addEventListener('click', ()=>
     document.getElementById('navLinks').classList.remove('mobile-open')));
 
-  // Cart drawer (same as paperchasers.html)
+  // Cart drawer (same as index.html)
   async function refreshCartUI(){
     const cart = await cartGet();
     const countEl = document.getElementById('cartCount');

@@ -177,12 +177,12 @@
 <header class="site">
   <div class="nav">
     <nav class="nav-left" id="navLinks">
-      <a href="paperchasers.html#catalog">CATALOG</a>
-      <a href="paperchasers.html#lookbook">LOOKBOOK</a>
-      <a href="paperchasers.html#about">ABOUT</a>
+      <a href="index.html#catalog">CATALOG</a>
+      <a href="index.html#lookbook">LOOKBOOK</a>
+      <a href="index.html#about">ABOUT</a>
     </nav>
     <div class="nav-center">
-      <a href="paperchasers.html" aria-label="PaperChasers home">
+      <a href="index.html" aria-label="PaperChasers home">
         <img src="logox2.png" alt="PaperChasers" class="logo-main">
       </a>
     </div>
@@ -202,7 +202,7 @@
 <main class="checkout-main">
   <div class="checkout-wrap">
     <div class="checkout-head">
-      <a href="paperchasers.html#catalog" class="back-link">← Back to Catalog</a>
+      <a href="index.html#catalog" class="back-link">← Back to Catalog</a>
       <h1 class="display" style="margin-top:14px;">Checkout</h1>
       <p>Fill your details — demo store, no real payment. We’ll save the rest for later.</p>
     </div>
@@ -360,7 +360,7 @@
     if(countEl) countEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
 
     if(cart.length===0){
-      itemsEl.innerHTML = '<div class="empty-checkout">Your cart is empty.<br><a href="paperchasers.html#catalog">Back to Catalog</a></div>';
+      itemsEl.innerHTML = '<div class="empty-checkout">Your cart is empty.<br><a href="index.html#catalog">Back to Catalog</a></div>';
       totalEl.textContent = '0 ₽';
       document.getElementById('checkoutFormWrap').style.display='none';
       return;
@@ -430,7 +430,7 @@
         <p style="font-size:13px; line-height:1.7; color:var(--carbon); max-width:520px; margin:0 auto 18px;">
           Thanks, ${data.name ? data.name : 'chaser'} — demo confirmation. No payment was charged. We saved your details (${data.email || ''}) and will handle real payments later.<br><span style="font-size:11px; color:var(--carbon);">Check console for ORDER PAYLOAD with full selectedPickupPoint.</span>
         </p>
-        <a href="paperchasers.html#catalog" class="btn">Back to Catalog</a>
+        <a href="index.html#catalog" class="btn">Back to Catalog</a>
       </div>
     `;
     await cartSave([]);
