@@ -108,7 +108,17 @@
     const toggle = document.getElementById('menuToggle');
     const links = document.querySelector('.nav-left');
     if(!toggle || !links) return;
-    toggle.onclick = ()=> links.classList.toggle('mobile-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.onclick = ()=>{
+      const open = links.classList.toggle('mobile-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.textContent = open ? '✕' : '☰';
+    };
+    links.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{
+      links.classList.remove('mobile-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    }));
   }
 
   const modal = document.getElementById('checkoutModal');

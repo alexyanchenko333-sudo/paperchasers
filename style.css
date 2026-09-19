@@ -1,6 +1,6 @@
 /* ==========================================================
    PaperChasers — shared stylesheet
-   Used by: paperchasers.html, product-*.html, privacy-policy.html
+   Used by: index.html, product-*.html, privacy-policy.html
    ========================================================== */
 :root{
   --paper: #EAE4D6;
@@ -1289,4 +1289,90 @@ footer li{margin-bottom:9px;}
   .frame-card.size-md{width:220px; height:290px;}
   .frame-card.size-sq{width:240px; height:240px;}
   .memo{padding:32px 24px;}
+}
+
+/* ==========================================================
+   MOBILE AUDIT FIXES — mobile-only overrides.
+   Desktop (min-width:981px) intentionally untouched.
+   ========================================================== */
+
+/* Viewport-height units that survive the iOS URL bar.
+   Placed after the base rules so they win; on desktop dvh == vh. */
+.drawer{height:100%; height:100dvh;}
+.modal-card{max-height:90vh; max-height:90dvh;}
+
+/* 1. overflow-x:clip keeps position:sticky header working
+   (overflow-x:hidden can break sticky); fallback above stays. */
+@supports (overflow: clip) {
+  body{overflow-x:clip;}
+}
+
+/* 2+3+5+6+7. Header / catalog / cart / checkout / footer touch + safe areas */
+@media (max-width: 720px){
+  header.site{
+    padding-top:env(safe-area-inset-top, 0px);
+  }
+  .menu-toggle{min-width:44px; min-height:44px; padding:8px 12px; font-size:17px; line-height:1;}
+  .cart-btn{min-height:44px; min-width:44px; padding:8px 10px;}
+  .cart-icon{width:21px; height:21px;}
+  .nav-left.mobile-open{padding:14px 28px 18px; gap:4px;}
+  .nav-left.mobile-open a{
+    min-height:44px; display:flex; align-items:center;
+    font-size:13px; padding:10px 0;
+  }
+  .filter-toggle{min-height:44px;}
+  .filter-btn{min-height:40px; padding:10px 18px; font-size:11px;}
+  .card .sizes .size-btn{min-width:44px; min-height:44px; padding:12px 8px; font-size:12px;}
+  .add-btn{min-height:48px; font-size:11px;}
+  .drawer{width:min(420px,94vw);}
+  .drawer-items{padding:12px 18px;}
+  .drawer-head{padding:18px 18px 14px;}
+  .close-x{min-width:44px; min-height:44px; padding:8px;}
+  .qty-row{ gap:8px; }
+  .qty-row button{width:38px; height:38px; font-size:16px;}
+  .qty-row span{min-width:28px; font-size:15px;}
+  .checkout-btn{min-height:52px; font-size:13px;}
+  .drawer-foot{padding:18px 18px calc(20px + env(safe-area-inset-bottom, 0px));}
+  .field input{font-size:16px;} /* prevents iOS Safari auto-zoom on focus */
+  footer{padding-bottom:calc(36px + env(safe-area-inset-bottom, 0px));}
+}
+
+/* CDEK map wrapper has inline height:380px — match the mock's mobile height */
+@media (max-width: 760px){
+  #cdekMap{height:320px !important;}
+}
+
+/* 8. ABOUT mobile — deliberate small-screen typesetting, same concept */
+@media (max-width: 760px){
+  .ref-brand-title{font-size:clamp(30px, 9.5vw, 38px) !important; line-height:0.95 !important;}
+  .ref-brand-sub{font-size:10.5px !important; line-height:1.6;}
+  .ref-text p{font-size:14.5px !important; line-height:1.65 !important;}
+  .ref-principle{font-size:14.5px !important;}
+  .ref-center{padding:16px 0;}
+  .ref-grid-wrap{max-width:280px;}
+  .follow-sig img{max-width:300px !important;}
+  .photo-social-circles{gap:16px;}
+  .social-circle{width:60px; height:60px;}
+  .about-card{padding:0 8px;}
+  .ref-drop{padding:12px 0;}
+}
+
+/* Footer legal links stack instead of squeezing on narrow screens */
+@media (max-width: 560px){
+  .foot-bottom{flex-direction:column; align-items:flex-start; gap:10px;}
+  .foot-bottom a{display:inline-block; padding:6px 0;}
+}
+
+/* Very small screens: stack city/ZIP, slim checkout thumbs, calmer hero */
+@media (max-width: 400px){
+  .field-row{flex-direction:column;}
+  .mini-card{grid-template-columns:56px 1fr auto; gap:10px; padding:10px;}
+  .mini-card img{width:56px; height:56px;}
+}
+
+@media (max-width: 480px){
+  .tape{width:90px; height:32px;}
+  .hero .eyebrow{font-size:10.5px; line-height:1.7;}
+  .card h3{font-size:14px;}
+  .modal-card{padding:28px 22px;}
 }

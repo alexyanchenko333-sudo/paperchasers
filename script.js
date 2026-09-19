@@ -1,4 +1,4 @@
-/* PaperChasers — main site script (paperchasers.html) */
+/* PaperChasers — main site script (index.html) */
 (function(){
 
   /* ---------------- CATALOG ---------------- */
@@ -179,8 +179,18 @@
   function initMobileMenu(){
     const toggle = document.getElementById('menuToggle');
     const links = document.getElementById('navLinks');
-    toggle.onclick = ()=> links.classList.toggle('mobile-open');
-    links.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> links.classList.remove('mobile-open')));
+    if(!toggle || !links) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.onclick = ()=>{
+      const open = links.classList.toggle('mobile-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.textContent = open ? '✕' : '☰';
+    };
+    links.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{
+      links.classList.remove('mobile-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    }));
   }
 
   /* ---------------- CHECKOUT ---------------- */
@@ -253,23 +263,28 @@
     initCheckout();
     await refreshCartUI();
 
-    // Scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
+    // Scroll reveal. Desktop keeps the original set (sections, cards,
+    // lookbook frames); on narrow screens only product cards animate —
+    // animating whole sections and the marquee janks on mobile and fights
+    // the marquee keyframes. Revealed nodes are unobserved and their
+    // inline styles cleared so :hover lifts keep working.
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const narrow = window.matchMedia('(max-width: 720px)').matches;
+    const revealables = document.querySelectorAll(narrow ? '.card' : 'section, .card, .frame-card');
+    if(!revealables.length || !('IntersectionObserver' in window)) return;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+        if(entry.isIntersecting){
+          const el = entry.target;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          // Hand control back to CSS so :hover keeps working.
+          setTimeout(()=>{ el.style.opacity=''; el.style.transform=''; el.style.transition=''; }, 650);
+          observer.unobserve(el);
         }
       });
-    }, observerOptions);
-
-    // Animate sections on scroll
-    document.querySelectorAll('section, .card, .frame-card').forEach(el => {
+    }, {threshold: narrow ? 0.05 : 0.1, rootMargin:'0px 0px -40px 0px'});
+    revealables.forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';

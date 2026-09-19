@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Privacy Policy — PAPERCHASERS</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -145,11 +145,21 @@
 <script src="cart.js"></script>
 <script>
   // Mobile menu (same as index.html)
-  document.getElementById('menuToggle').addEventListener('click', ()=>{
-    document.getElementById('navLinks').classList.toggle('mobile-open');
-  });
-  document.querySelectorAll('#navLinks a').forEach(a=> a.addEventListener('click', ()=>
-    document.getElementById('navLinks').classList.remove('mobile-open')));
+  (function(){
+    const toggle = document.getElementById('menuToggle');
+    const links = document.getElementById('navLinks');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener('click', ()=>{
+      const open = links.classList.toggle('mobile-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.textContent = open ? '✕' : '☰';
+    });
+    document.querySelectorAll('#navLinks a').forEach(a=> a.addEventListener('click', ()=>{
+      links.classList.remove('mobile-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    }));
+  })();
 
   // Cart drawer (same as index.html)
   async function refreshCartUI(){
