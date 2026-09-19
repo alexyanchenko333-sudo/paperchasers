@@ -1318,6 +1318,14 @@ footer li{margin-bottom:9px;}
   .menu-toggle{min-width:44px; min-height:44px; padding:8px 12px; font-size:17px; line-height:1;}
   .cart-btn{min-height:44px; min-width:44px; padding:8px 10px;}
   .cart-icon{width:21px; height:21px;}
+  /* Header order on mobile: BURGER — LOGO — CART.
+     nav-right is flattened so the toggle and the cart become direct
+     grid items; columns/sizes/gaps stay exactly as before. */
+  .nav{grid-template-columns:auto 1fr auto;}
+  .nav-right{display:contents;}
+  .menu-toggle{grid-column:1; grid-row:1; justify-self:start;}
+  .nav-center{grid-column:2; grid-row:1;}
+  .cart-btn{grid-column:3; grid-row:1; justify-self:end;}
   .nav-left.mobile-open{padding:14px 28px 18px; gap:4px;}
   .nav-left.mobile-open a{
     min-height:44px; display:flex; align-items:center;
@@ -1342,6 +1350,12 @@ footer li{margin-bottom:9px;}
   .close-x{min-width:44px; min-height:44px; padding:8px;}
   .qty-row{ gap:8px; }
   .qty-row button{width:38px; height:38px; font-size:16px;}
+  /* Perfectly centered −/+ in their squares (text Remove excluded —
+     it keeps its link styling via the more specific .rm rule). */
+  .qty-row button:not(.rm){
+    display:flex; align-items:center; justify-content:center;
+    line-height:1; padding:0;
+  }
   .qty-row span{min-width:28px; font-size:15px;}
   .checkout-btn{min-height:52px; font-size:13px;}
   .drawer-foot{padding:18px 18px calc(20px + env(safe-area-inset-bottom, 0px));}
@@ -1371,6 +1385,12 @@ footer li{margin-bottom:9px;}
   .social-circle{width:60px; height:60px;}
   .about-card{padding:0 8px;}
   .ref-drop{padding:12px 0;}
+  /* ARCHIVE / FOLLOW headings + socials centered on mobile.
+     The dashed border under the heads spans full width, so it stays
+     visually symmetric once the text is centered. */
+  .ref-archive-head{justify-content:center; text-align:center;}
+  .ref-follow-head{justify-content:center; text-align:center;}
+  .photo-social-circles{justify-content:center;}
 }
 
 /* Footer legal links stack instead of squeezing on narrow screens */
