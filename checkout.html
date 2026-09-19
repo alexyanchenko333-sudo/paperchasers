@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — PAPERCHASERS</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Checkout page — left form / right mini cards */
+.checkout-main{
+  background:var(--paper);
+  padding:36px 0 80px;
+  min-height:70vh;
+}
+.checkout-wrap{
+  width:min(90vw, 1500px);
+  max-width:none;
+  margin:0 auto;
+  padding:0 24px;
+}
+.checkout-head{
+  margin-bottom:28px;
+}
+.checkout-head h1{
+  font-size:clamp(28px,4vw,38px);
+  margin:0 0 8px;
+}
+.checkout-head p{
+  font-size:13px;
+  color:var(--carbon);
+  margin:0;
+}
+.checkout-layout{
+  display:grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap:40px;
+  align-items:start;
+}
+.checkout-form-card,
+.checkout-summary-card{
+  background:var(--paper-white);
+  border:1.5px solid var(--ink);
+  padding:28px 26px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.07);
+}
+.checkout-form-card h2,
+.checkout-summary-card h2{
+  font-family:var(--font-display);
+  font-size:16px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  margin:0 0 18px;
+}
+.checkout-summary-card{
+  position:sticky;
+  top:88px;
+}
+#checkoutItemsPage{
+  display:grid;
+  gap:14px;
+  margin-bottom:18px;
+}
+.mini-card{
+  display:grid;
+  grid-template-columns:72px 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:12px;
+  border:1px solid rgba(22,20,15,0.12);
+  background:#fff;
+}
+.mini-card img{
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  background:var(--paper);
+  display:block;
+}
+.mini-card .mc-name{
+  font-weight:700;
+  font-size:13px;
+  line-height:1.3;
+  margin-bottom:4px;
+}
+.mini-card .mc-meta{
+  font-size:11px;
+  color:var(--carbon);
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+.mini-card .mc-price{
+  font-weight:700;
+  font-size:13px;
+  white-space:nowrap;
+}
+.mini-card .mc-qty{
+  font-size:11px;
+  color:var(--carbon);
+}
+.checkout-total-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  padding-top:14px;
+  margin-top:6px;
+  border-top:1.5px dashed var(--line);
+  font-weight:800;
+  font-size:15px;
+}
+.empty-checkout{
+  text-align:center;
+  padding:40px 16px;
+  color:var(--carbon);
+  font-size:14px;
+  line-height:1.7;
+}
+.empty-checkout a{
+  color:var(--ink);
+  font-weight:700;
+  text-decoration:underline;
+}
+.checkout-success{
+  text-align:center;
+  padding:30px 10px;
+}
+.checkout-success .stamp{
+  display:inline-block;
+  border:2px solid var(--stamp);
+  color:var(--stamp);
+  font-weight:900;
+  padding:6px 14px;
+  transform:rotate(-3deg);
+  margin-bottom:16px;
+}
+@media (max-width: 860px){
+  .checkout-layout{ grid-template-columns:1fr; }
+  .checkout-summary-card{ position:static; }
+}
+/* PC: larger texts — placeholders inside inputs stay as before (13.5px) */
+@media (min-width: 981px){
+  .checkout-head h1{ font-size:clamp(32px,4.5vw,44px); }
+  .checkout-head p{ font-size:15px; }
+  .checkout-form-card h2, .checkout-summary-card h2{ font-size:19px; }
+  .field label{ font-size:13px; }
+  .delivery-block label{ font-size:12.5px; }
+  .delivery-block span{ font-size:15px; }
+  .pickup-block label{ font-size:12.5px; }
+  #openPickupBtn{ font-size:13.5px; }
+  #pickupSelected, #cdekCard{ font-size:13px; }
+  .consent-row{ font-size:13px; }
+  .consent-row span{ font-size:13px; }
+  .place-btn{ font-size:14px; }
+  .checkout-total-row{ font-size:17px; }
+  .mini-card .mc-name{ font-size:15px; }
+  .mini-card .mc-meta, .mini-card .mc-qty{ font-size:13px; }
+  .mini-card .mc-price{ font-size:15px; }
+  .empty-checkout{ font-size:16px; }
+}
+
+.autocomplete-list{
+  position:absolute; top:100%; left:0; right:0; z-index:10;
+  background:var(--paper-white); border:1px solid var(--ink); border-top:none;
+  max-height:180px; overflow-y:auto; box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+.autocomplete-item{
+  padding:8px 10px; font-size:12px; cursor:pointer; border-bottom:1px dashed var(--line);
+}
+.autocomplete-item:last-child{border-bottom:none;}
+.autocomplete-item:hover, .autocomplete-item.active{ background:var(--paper); }
+.autocomplete-item .ac-city{ font-weight:700; }
+.autocomplete-item .ac-addr{ font-size:11px; color:var(--carbon); }
+
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <nav class="nav-left" id="navLinks">
+      <a href="paperchasers.html#catalog">CATALOG</a>
+      <a href="paperchasers.html#lookbook">LOOKBOOK</a>
+      <a href="paperchasers.html#about">ABOUT</a>
+    </nav>
+    <div class="nav-center">
+      <a href="paperchasers.html" aria-label="PaperChasers home">
+        <img src="logox2.png" alt="PaperChasers" class="logo-main">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+      <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+        <span class="cart-text">CART (<span class="cart-count" id="cartCount">0</span>)</span>
+        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M6 8h12l-1 12H7L6 8Z"/>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="checkout-main">
+  <div class="checkout-wrap">
+    <div class="checkout-head">
+      <a href="paperchasers.html#catalog" class="back-link">← Back to Catalog</a>
+      <h1 class="display" style="margin-top:14px;">Checkout</h1>
+      <p>Fill your details — demo store, no real payment. We’ll save the rest for later.</p>
+    </div>
+
+    <div class="checkout-layout" id="checkoutLayout">
+      <!-- LEFT: form -->
+      <div class="checkout-form-card" id="checkoutFormWrap">
+        <h2>Shipping & Contact</h2>
+        <form id="checkoutPageForm">
+          <div class="field"><label>ФИО *</label><input required name="name" autocomplete="name" placeholder="Иван Петров"></div>
+          <div class="field"><label>Email *</label><input required type="email" name="email" autocomplete="email" placeholder="you@example.com"></div>
+          <div class="field"><label>ВАШ TG</label><input name="tg" placeholder="@pcorders"></div>
+          <div class="field"><label>ТЕЛЕФОН</label><input name="phone" autocomplete="tel" placeholder="+7 999 123-45-67"></div>
+
+          <div class="delivery-block" style="margin-top:18px; border-top:1.5px dashed var(--line); padding-top:18px;">
+            <label style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px; color:var(--carbon); font-weight:600;">DELIVERY *</label>
+            <label style="display:flex; gap:10px; align-items:center; font-size:13px; cursor:pointer;"><input type="radio" name="delivery" value="cdek_pickup" checked> <span>CDEK PICKUP — от 3 дней, 290 ₽</span></label>
+          </div>
+
+          <div class="pickup-block" id="pickupBlock" style="margin-top:16px;">
+            <div class="field autocomplete-wrap" style="position:relative; margin-top:0;">
+              <label>ГОРОД *</label>
+              <input id="cityInput" autocomplete="off" placeholder="Введите город..." style="padding-right:28px;">
+              <div id="citySuggestions" class="autocomplete-list" style="display:none;"></div>
+              <div id="cityNoResults" style="display:none; font-size:11px; color:var(--carbon); padding:6px 0;">No results</div>
+            </div>
+            <div class="field autocomplete-wrap" style="position:relative; margin-top:12px;">
+              <label>ПУНКТ ПОЛУЧЕНИЯ *</label>
+              <input id="pickupInput" autocomplete="off" placeholder="Выберите пункт получения..." disabled style="background:var(--paper); opacity:0.6;">
+              <div id="pickupSuggestions" class="autocomplete-list" style="display:none;"></div>
+              <div id="pickupNoResults" style="display:none; font-size:11px; color:var(--carbon); padding:6px 0;">No pickup points found.</div>
+            </div>
+            <div id="pickupSelected" style="display:none; margin-top:14px; padding-top:12px; border-top:1px solid var(--line);">
+              <div style="font-size:13px; margin-bottom:8px;">Пункт получения:</div>
+              <div id="selectedIdCity" style="font-size:13px; line-height:1.5;"></div>
+              <div style="font-size:13px; margin-top:4px;">Адрес: <span id="selectedAddr"></span></div>
+              <div id="selectedNote" style="font-size:11px; color:#8A8577; margin-top:4px; line-height:1.45; display:none;"></div>
+              <div style="font-size:13px; margin-top:8px;">Время работы: <span id="selectedTime"></span></div>
+              <div style="font-size:13px; margin-top:2px;">Телефон: <span id="selectedPhone"></span></div>
+              <button type="button" id="changePickupBtn" style="margin-top:14px; background:none; border:none; text-decoration:underline; font-size:13px; cursor:pointer; color:var(--ink); padding:0;">Изменить</button>
+            </div>
+            <div id="pickupMapWrap" style="display:none; margin-top:12px; border:1px solid var(--ink); overflow:hidden;">
+              <div id="cdekMap" style="height:380px; position:relative;"></div>
+              <div id="cdekLoadingMap" style="display:none; padding:10px; font-size:12px; color:var(--carbon); text-align:center; border-top:1px solid var(--line);">Loading map...</div>
+              <div id="cdekNoResultsMap" style="display:none; padding:10px; font-size:12px; color:var(--carbon); text-align:center; border-top:1px solid var(--line);">No pickup points found.</div>
+              <div id="cdekCard" style="display:none; margin:8px; border:1px solid var(--ink); padding:10px; background:var(--paper-white);">
+                <div style="font-weight:700; font-size:11px; letter-spacing:0.06em;">CDEK</div>
+                <div id="cardAddr" style="font-size:12px; margin:4px 0;"></div>
+                <div id="cardCity" style="font-size:11px; color:var(--carbon);"></div>
+                <div id="cardTime" style="font-size:11px; color:var(--carbon); margin-top:4px;"></div>
+                <button type="button" id="cardSelectBtn" style="margin-top:8px; width:100%; padding:8px; background:var(--ink); color:var(--paper-white); border:none; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer;">SELECT</button>
+              </div>
+            </div>
+            <div id="pickupLoading" style="display:none; font-size:12px; color:var(--carbon); padding:8px 0;">Loading pickup points...</div>
+            <div id="pickupError" style="display:none; font-size:12px; color:var(--stamp); padding:8px 0;">Unable to load pickup points.</div>
+          </div>
+
+          <div class="field" style="margin-top:24px;"><label>КОММЕНТАРИЙ</label><input name="comment" placeholder="Пожелания к заказу"></div>
+          <label class="consent-row">
+            <input type="checkbox" id="consentBox" required>
+            <span>I agree to the <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a> and processing of my details to fulfil this order.</span>
+          </label>
+          <button class="place-btn" type="submit" id="placeOrderBtn">Place Order</button>
+          <div class="field" style="margin-top:10px; font-size:11px; color:var(--carbon);">Demo — no payment is processed. Connect a provider before going live.</div>
+        </form>
+      </div>
+
+      <!-- RIGHT: summary -->
+      <div class="checkout-summary-card" id="checkoutSummaryWrap">
+        <h2>Order Summary</h2>
+        <div id="checkoutItemsPage"></div>
+        <div class="checkout-total-row"><span>TOTAL</span><span id="checkoutTotalPage">0 ₽</span></div>
+        <div style="margin-top:14px; font-size:11px; color:var(--carbon);">All sales final · No restocks</div>
+        <div class="drawer-barcode" style="margin-top:18px;"></div>
+      </div>
+    </div>
+
+    <div id="checkoutSuccess" style="display:none;"></div>
+  </div>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand-line">PaperChasers</div>
+        <p>Streetwear for the grind. Small drops, no restocks, every piece numbered like a receipt.</p>
+        <div class="barcode"></div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:paperchasersclothes@gmail.com">paperchasersclothes@gmail.com</a></li>
+          <li>Support: Mon–Fri, 10:00–18:00</li>
+          <li>TG Manager - @pcorders</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://t.me/paperchasersclub" target="_blank" rel="noopener">Telegram — paperchasersclub</a></li>
+          <li><a href="https://www.instagram.com/paperchasersclothes/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener">Instagram — @paperchasersclothes</a></li>
+          <li><a href="https://www.tiktok.com/@paperchasersclub?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener">TikTok — @paperchasersclub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 PAPERCHASERS. NO REFUNDS ON PROOF OF GRIND.</span>
+      <span><a href="privacy-policy.html" style="color:inherit;">PRIVACY POLICY</a>&nbsp;&nbsp;<a href="offer.html" style="color:inherit;">ПУБЛИЧНАЯ ОФЕРТА</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- keep drawer for cart access from checkout page -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your Receipt</h3>
+    <button class="close-x" id="closeDrawer" aria-label="Close cart">✕</button>
+  </div>
+  <div class="receipt-meta" id="receiptDate"></div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>TOTAL</span><span id="cartTotal">0 ₽</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Tear Off & Checkout</button>
+    <div class="drawer-barcode"></div>
+  </div>
+</div>
+
+<div class="modal" id="checkoutModal"><div class="modal-card" id="checkoutCard"></div></div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script src="mock-cdek.js"></script>
+<script src="map-mock.js"></script>
+<script src="checkout-cdek.js"></script>
+<script>
+// Checkout page logic
+(function(){
+  const PRODUCTS_BY_ID = {};
+  if(typeof PRODUCTS !== 'undefined'){
+    PRODUCTS.forEach(p=> PRODUCTS_BY_ID[p.id]=p);
+  }
+
+  async function renderCheckoutPage(){
+    const cart = await cartGet();
+    const itemsEl = document.getElementById('checkoutItemsPage');
+    const totalEl = document.getElementById('checkoutTotalPage');
+    const btnTotalEl = document.getElementById('placeOrderBtn');
+    const layout = document.getElementById('checkoutLayout');
+    const successEl = document.getElementById('checkoutSuccess');
+
+    // update header cart count
+    const countEl = document.getElementById('cartCount');
+    if(countEl) countEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
+
+    if(cart.length===0){
+      itemsEl.innerHTML = '<div class="empty-checkout">Your cart is empty.<br><a href="paperchasers.html#catalog">Back to Catalog</a></div>';
+      totalEl.textContent = '0 ₽';
+      document.getElementById('checkoutFormWrap').style.display='none';
+      return;
+    }
+
+    const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    totalEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+    if(btnTotalEl) btnTotalEl.textContent = 'Place Order — ' + total.toLocaleString('ru-RU') + ' ₽';
+
+    itemsEl.innerHTML='';
+    cart.forEach(item=>{
+      const prod = PRODUCTS_BY_ID[item.id];
+      const imgSrc = prod && prod.img ? prod.img : '';
+      const hue = prod && prod.hue ? prod.hue : '#EAE4D6';
+      const row = document.createElement('div');
+      row.className='mini-card';
+      row.innerHTML = `
+        <div style="background:${hue}18; display:flex; align-items:center; justify-content:center;">
+          ${imgSrc ? `<img src="${imgSrc}" alt="${item.name}">` : `<div style="width:72px;height:72px;background:${hue};opacity:0.5;"></div>`}
+        </div>
+        <div>
+          <div class="mc-name">${item.name}</div>
+          <div class="mc-meta">SIZE ${item.size}</div>
+          <div class="mc-qty">Qty ${item.qty}</div>
+        </div>
+        <div class="mc-price">${(item.price*item.qty).toLocaleString('ru-RU')} ₽</div>
+      `;
+      itemsEl.appendChild(row);
+    });
+  }
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const cart = await cartGet();
+    if(cart.length===0) return;
+    const delivery = (document.querySelector('input[name="delivery"]:checked')||{}).value || 'cdek_pickup';
+    const pickup = window.getSelectedPickupPoint ? window.getSelectedPickupPoint() : null;
+    if(delivery === 'cdek_pickup' && !pickup){
+      alert('Please select a pickup point (CDEK) before placing the order.');
+      const block = document.getElementById('pickupBlock');
+      if(block) block.scrollIntoView({behavior:'smooth', block:'center'});
+      // highlight button
+      const btn = document.getElementById('openPickupBtn');
+      if(btn){ btn.style.borderColor='var(--stamp)'; setTimeout(()=> btn.style.borderColor='', 1400); }
+      return;
+    }
+    const fd = new FormData(e.target);
+    const data = Object.fromEntries(fd.entries());
+    // attach delivery + full pickup point object for order creation (mock)
+    data.delivery = delivery;
+    if(pickup) data.pickupPoint = pickup;
+    // For debugging: log full selectedPickupPoint — this is where REAL CDEK API data will go
+    console.log('ORDER PAYLOAD', {cart, data, selectedPickupPoint: pickup});
+    const orderNo = 'PC-' + Math.floor(100000 + Math.random()*899999);
+    // show success, clear cart, keep summary for confirmation
+    document.getElementById('checkoutFormWrap').style.display='none';
+    document.getElementById('checkoutSummaryWrap').style.display='none';
+    const successEl = document.getElementById('checkoutSuccess');
+    successEl.style.display='block';
+    const pickupInfo = pickup ? `<div style="margin:12px auto 14px; padding:10px 12px; border:1px solid var(--ink); background:var(--paper); max-width:420px; text-align:left; font-size:12px; line-height:1.6;"><div style="font-weight:700; font-size:11px; letter-spacing:0.06em;">CDEK — ${pickup.id}</div><div>${pickup.address}</div><div style="color:var(--carbon);">${pickup.city}</div><div style="color:var(--carbon); font-size:11px; margin-top:4px;">${pickup.workTime}</div></div>` : '';
+    successEl.innerHTML = `
+      <div class="checkout-form-card checkout-success">
+        <div class="stamp">FILED</div>
+        <h3 class="display" style="margin:12px 0 8px;">Order Received</h3>
+        <div style="font-size:13px; color:var(--carbon); margin-bottom:14px;">ORDER № ${orderNo}</div>
+        ${pickupInfo}
+        <p style="font-size:13px; line-height:1.7; color:var(--carbon); max-width:520px; margin:0 auto 18px;">
+          Thanks, ${data.name ? data.name : 'chaser'} — demo confirmation. No payment was charged. We saved your details (${data.email || ''}) and will handle real payments later.<br><span style="font-size:11px; color:var(--carbon);">Check console for ORDER PAYLOAD with full selectedPickupPoint.</span>
+        </p>
+        <a href="paperchasers.html#catalog" class="btn">Back to Catalog</a>
+      </div>
+    `;
+    await cartSave([]);
+    try{ localStorage.removeItem('pc_pickup_point_v1'); }catch(e){}
+    // update cart UI in drawer/header
+    const countEl = document.getElementById('cartCount');
+    if(countEl) countEl.textContent='0';
+    const totalEl = document.getElementById('cartTotal');
+    if(totalEl) totalEl.textContent='0 ₽';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // drawer still works on this page
+  async function refreshDrawer(){
+    const cart = await cartGet();
+    const countEl = document.getElementById('cartCount');
+    if(countEl) countEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
+    const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+    const totalEl = document.getElementById('cartTotal');
+    if(totalEl) totalEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+    const itemsEl = document.getElementById('drawerItems');
+    if(!itemsEl) return;
+    if(cart.length===0){
+      itemsEl.innerHTML = '<div class="empty-cart">Nothing filed yet.<br>Add something from the catalog.</div>';
+      return;
+    }
+    itemsEl.innerHTML='';
+    cart.forEach(item=>{
+      const row=document.createElement('div');
+      row.className='line-item';
+      row.innerHTML = `
+        <div>
+          <div class="nm">${item.name}</div>
+          <div class="meta">SIZE ${item.size}</div>
+          <div class="qty-row">
+            <button aria-label="Decrease">−</button>
+            <span>${item.qty}</span>
+            <button aria-label="Increase">+</button>
+            <button class="rm">Remove</button>
+          </div>
+        </div>
+        <div>${(item.price*item.qty).toLocaleString('ru-RU')} ₽</div>
+      `;
+      const [minus, plus, rm] = row.querySelectorAll('button');
+      minus.onclick = async ()=>{ let c=await cartGet(); const it=c.find(i=>i.id===item.id&&i.size===item.size); if(it){it.qty--; if(it.qty<=0) c=c.filter(i=>!(i.id===item.id&&i.size===item.size)); await cartSave(c); await refreshDrawer(); await renderCheckoutPage(); }};
+      plus.onclick = async ()=>{ let c=await cartGet(); const it=c.find(i=>i.id===item.id&&i.size===item.size); if(it){it.qty++; await cartSave(c); await refreshDrawer(); await renderCheckoutPage(); }};
+      rm.onclick = async ()=>{ let c=await cartGet(); c=c.filter(i=>!(i.id===item.id&&i.size===item.size)); await cartSave(c); await refreshDrawer(); await renderCheckoutPage(); };
+      itemsEl.appendChild(row);
+    });
+  }
+
+  function initDrawer(){
+    const overlay=document.getElementById('overlay');
+    const drawer=document.getElementById('drawer');
+    async function openDrawer(){ overlay.classList.add('show'); drawer.classList.add('open'); const d=document.getElementById('receiptDate'); if(d) d.textContent='FILED ' + new Date().toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'}); await refreshDrawer(); }
+    function closeDrawer(){ overlay.classList.remove('show'); drawer.classList.remove('open'); }
+    const openBtn=document.getElementById('openCartBtn');
+    if(openBtn) openBtn.onclick=openDrawer;
+    const closeBtn=document.getElementById('closeDrawer');
+    if(closeBtn) closeBtn.onclick=closeDrawer;
+    if(overlay) overlay.onclick=closeDrawer;
+    // checkout button inside drawer on this page should just close drawer (already on checkout)
+    const checkoutBtn=document.getElementById('checkoutBtn');
+    if(checkoutBtn) checkoutBtn.onclick=()=>{ closeDrawer(); window.scrollTo({top:0,behavior:'smooth'}); };
+  }
+
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    await renderCheckoutPage();
+    initDrawer();
+    const form=document.getElementById('checkoutPageForm');
+    if(form) form.addEventListener('submit', handleSubmit);
+    // mobile menu
+    const toggle=document.getElementById('menuToggle');
+    const links=document.getElementById('navLinks');
+    if(toggle && links) toggle.onclick=()=> links.classList.toggle('mobile-open');
+  });
+})();
+</script>
+</body>
+</html>

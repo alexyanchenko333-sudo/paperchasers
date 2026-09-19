@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAPERCHASERS — Wear The Proof</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <nav class="nav-left" id="navLinks">
+      <a href="#catalog">CATALOG</a>
+      <a href="#lookbook">LOOKBOOK</a>
+      <a href="#about">ABOUT</a>
+    </nav>
+    <div class="nav-center">
+      <a href="#top" aria-label="PaperChasers home">
+        <img src="logox2.png" alt="PaperChasers" class="logo-main">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+      <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+        <span class="cart-text">CART (<span class="cart-count" id="cartCount">0</span>)</span>
+        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M6 8h12l-1 12H7L6 8Z"/>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+<section class="hero" id="top">
+  <div class="tape tl"></div>
+  <div class="tape tr"></div>
+  <div class="eyebrow">STREETWEAR · LIMITED RUNS · NO RESTOCKS</div>
+  <h1 class="display">
+    <span>WEAR THE</span>
+    <span class="accent">PROOF.</span>
+  </h1>
+  <p class="sub">PaperChasers documents the grind in cotton and thread — receipts, ledgers and carbon copies turned into a wardrobe. Every drop is proof of work.</p>
+  <div class="cta-row">
+    <a href="#catalog" class="btn">Shop The Drop</a>
+    <a href="#lookbook" class="btn ghost">View Lookbook</a>
+  </div>
+</section>
+<div class="torn" style="--tone:var(--paper-dark)"></div>
+
+<section id="catalog">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 class="display">Catalog</h2>
+      </div>
+      <button class="filter-toggle" id="filterToggle" aria-expanded="false">Filter <span class="plus">+</span></button>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+<div class="torn flip" style="--tone:var(--paper)"></div>
+
+<section id="lookbook">
+<div class="sec-head">
+      <div>
+        <h2 class="display">Lookbook</h2>
+      </div>
+      <div class="eyebrow">Shot on the clock</div>
+    </div>
+  <div class="marquee">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+</section>
+<div class="torn" style="--tone:var(--paper-dark)"></div>
+
+<section id="about">
+  <div class="about-card">
+    <div class="about-head">
+      <span class="about-head-line"></span>
+      <h2>ABOUT</h2>
+      <span class="about-head-line"></span>
+    </div>
+    <div class="about-body ref">
+      <div class="ref-left">
+        <div class="ref-brand">
+          <div class="ref-brand-title">PAPERCHASERS</div>
+          <div class="ref-brand-sub">PHILOSOPHY <span style="text-transform:none; font-size:inherit; letter-spacing:0.06em; margin-left:6px;">(not because is everyone chasing only money)</span></div>
+        </div>
+        <div class="ref-text">
+          <p>Everyone is chasing something.<br>Money. Freedom. Recognition. A dream.<br>Whatever it is, the chase never really stops.</p>
+          <p class="ref-bold">PAPER is the RESULT.</p>
+          <p>The receipt.<br>The record.<br>The proof that you made it happen.</p>
+          <p>You get there.<br>You look back.<br>Then you find something else worth chasing.</p>
+          <p class="ref-bold" style="text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px;">That's the point.</p>
+          <p class="ref-bold">PAPERCHASERS is for those still chasing.</p>
+          <p>Every drop is a piece of that pursuit &mdash;<br>made in limited runs, never restocked.</p>
+        </div>
+        <div class="ref-principle">GET PAPER OR DIE CHASING.</div>
+      </div>
+      <div class="ref-center">
+        <div class="ref-grid-wrap">
+          <svg class="ref-circles" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <pattern id="refGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(22,20,15,0.07)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="300" height="300" fill="url(#refGrid)" />
+            <g fill="none" stroke="#1A1A1A" stroke-width="0.75" opacity="0.88" stroke-linecap="round">
+              <ellipse cx="148" cy="152" rx="118" ry="116" transform="rotate(-3 148 152)" />
+              <ellipse cx="152" cy="148" rx="112" ry="120" transform="rotate(2 152 148)" />
+              <ellipse cx="150" cy="150" rx="106" ry="104" transform="rotate(-1.5 150 150)" />
+              <ellipse cx="149" cy="151" rx="98" ry="102" transform="rotate(3.5 149 151)" />
+            </g>
+            <g font-family="'Courier New', ui-monospace, monospace" text-anchor="middle" fill="#0A0A0A">
+              <text x="150" y="135" font-size="13" letter-spacing="2.2" font-weight="700">THE CHASE</text>
+              <line x1="132" y1="144" x2="168" y2="144" stroke="#0A0A0A" stroke-width="0.7" />
+              <text x="150" y="162" font-size="9" letter-spacing="0.9">NO FINISH LINE</text>
+              <text x="150" y="174" font-size="9" letter-spacing="0.9">JUST</text>
+              <text x="150" y="186" font-size="9" letter-spacing="0.9">NEXT STEP</text>
+            </g>
+          </svg>
+          <div class="ref-center-line"></div>
+          <div class="ref-reminder">
+            <div>REMINDER:<br>THE RESULT IS NEVER THE END.<br>THE CHASE IS THE POINT.</div>
+            <div class="ref-pc-box">[ PC ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="ref-right">
+        <div class="ref-archive-head">ARCHIVE</div>
+        <div class="ref-drop">
+          <div class="ref-drop-left">001</div>
+          <div class="ref-drop-main">
+            <div class="ref-drop-name">DON QUIJOTE</div>
+            <div class="ref-drop-sub">HOODIE</div>
+          </div>
+          <div class="ref-drop-date">APR 2025</div>
+        </div>
+        <div class="ref-drop">
+          <div class="ref-drop-left">002</div>
+          <div class="ref-drop-main">
+            <div class="ref-drop-name">FIVE BANDS</div>
+            <div class="ref-drop-sub">WAFFLE LONG SLEEVE</div>
+          </div>
+          <div class="ref-drop-date">JUN 2025</div>
+        </div>
+        <div class="ref-drop">
+          <div class="ref-drop-left">003</div>
+          <div class="ref-drop-main">
+            <div class="ref-drop-name">NEXT RECORD</div>
+            <div class="ref-drop-sub">COMING SOON</div>
+            <div class="ref-drop-dots">...</div>
+          </div>
+          <div class="ref-drop-date">TBA</div>
+        </div>
+        <div class="follow-sig">
+          <img src="images/signature.png" alt="PaperChasers">
+        </div>
+        <div class="ref-follow-head">FOLLOW</div>
+        <div class="ref-social photo-social-circles">
+          <a href="https://t.me/paperchasersclub" class="social-circle" target="_blank" rel="noopener" aria-label="Telegram">
+            <img src="images/tg.png" alt="Telegram">
+          </a>
+          <a href="https://www.tiktok.com/@paperchasersclub?_r=1&_t=ZT-99U3E0bazKH" class="social-circle" target="_blank" rel="noopener" aria-label="TikTok">
+            <img src="images/tt.png" alt="TikTok">
+          </a>
+          <a href="https://www.instagram.com/paperchasersclothes?igsi=d3M1dzhuc2kxamNo&utm_source=qr" class="social-circle" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="images/ig.png" alt="Instagram">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand-line">PaperChasers</div>
+        <p>Streetwear for the ones on the chase. Built through the grind, worn for the next steps.</p>
+        <div class="barcode"></div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:paperchasersclothes@gmail.com">paperchasersclothes@gmail.com</a></li>
+          <li>Support: Mon–Fri, 10:00–18:00</li>
+          <li>TG Manager - @pcorders</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://t.me/paperchasersclub" target="_blank" rel="noopener">Telegram — paperchasersclub</a></li>
+          <li><a href="https://www.instagram.com/paperchasersclothes/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener">Instagram — @paperchasersclothes</a></li>
+          <li><a href="https://www.tiktok.com/@paperchasersclub?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener">TikTok — @paperchasersclub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 PAPERCHASERS. NO REFUNDS ON PROOF OF GRIND.</span>
+      <span><a href="privacy-policy.html" style="color:inherit;">PRIVACY POLICY</a>&nbsp;&nbsp;<a href="offer.html" style="color:inherit;">ПУБЛИЧНАЯ ОФЕРТА</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your Receipt</h3>
+    <button class="close-x" id="closeDrawer" aria-label="Close cart">✕</button>
+  </div>
+  <div class="receipt-meta" id="receiptDate"></div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>TOTAL</span><span id="cartTotal">0 ₽</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Tear Off &amp; Checkout</button>
+    <div class="drawer-barcode"></div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-card" id="checkoutCard"></div>
+</div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

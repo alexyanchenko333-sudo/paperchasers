@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statue Waffle Longsleeve — PAPERCHASERS</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ——— PRODUCT-1 — light ref, inspired not copied ——— */
+.p1-page{
+  background:#EFEBE0;
+}
+.p1-main{
+  background:#EFEBE0;
+  padding:18px 0 0 0;
+}
+.p1-wrap{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 28px;
+}
+.p1-back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:#8A8577;
+  text-decoration:none;
+  margin-bottom:18px;
+}
+.p1-back:hover{color:var(--ink);}
+.p1-layout{
+  display:grid;
+  grid-template-columns: 1.45fr 0.9fr;
+  gap:48px;
+  align-items:start;
+  padding-bottom:50px;
+}
+/* gallery */
+.p1-gallery{
+  display:grid;
+  grid-template-columns:92px 1fr;
+  gap:12px;
+  align-items:start;
+}
+.p1-thumbs{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.p1-thumb{
+  width:92px;
+  height:92px;
+  background:#F5F1E7;
+  border:1px solid rgba(22,20,15,0.12);
+  padding:0;
+  overflow:hidden;
+  cursor:pointer;
+  opacity:0.65;
+  transition:opacity .2s, border-color .2s;
+}
+.p1-thumb.active{
+  opacity:1;
+  border-color:rgba(22,20,15,0.35);
+}
+.p1-thumb img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+.p1-main-img{
+  background:#EFEBE0;
+  border:none;
+  aspect-ratio: 1 / 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:10px;
+}
+.p1-main-img img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  mix-blend-mode:multiply;
+}
+/* info */
+.p1-info{
+  color:var(--ink);
+  padding-top:6px;
+}
+.p1-eyebrow{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:#9A9588;
+  margin-bottom:10px;
+}
+.p1-title{
+  font-family:var(--font-display);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:26px;
+  line-height:1.15;
+  letter-spacing:0.02em;
+  color:#16140F;
+  margin:0 0 8px 0;
+}
+.p1-price{
+  font-family:var(--font-mono);
+  font-size:16px;
+  font-weight:700;
+  color:#16140F;
+  margin-bottom:18px;
+  letter-spacing:0.04em;
+}
+.p1-divider{
+  height:1px;
+  background:rgba(22,20,15,0.14);
+  margin:0;
+}
+.p1-divider-dashed{
+  height:1px;
+  background:repeating-linear-gradient(90deg, rgba(22,20,15,0.22) 0 4px, transparent 4px 8px);
+  margin:0;
+}
+/* size header */
+.p1-size-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0 12px 0;
+}
+.p1-size-head .p1-label{margin-bottom:0;}
+.p1-size-guide-btn{
+  background:none;
+  border:none;
+  padding:0;
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--ink);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  cursor:pointer;
+}
+.p1-label{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:#5B5F5A;
+}
+.p1-size-row{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+  padding-top:2px;
+}
+.p1-size-row .size-btn{
+  min-width:auto;
+  height:auto;
+  padding:3px 4px 5px 4px;
+  border:none;
+  border-bottom:1.5px solid transparent;
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--font-mono);
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:0;
+  text-decoration:none;
+  transition:all .15s ease;
+}
+.p1-size-row .size-btn:hover{
+  color:#000;
+}
+.p1-size-row .size-btn.sel{
+  background:transparent;
+  color:var(--ink);
+  border-color:var(--ink);
+  font-weight:700;
+  text-decoration:none;
+  border-bottom-color:var(--ink);
+}
+/* add to cart — new visual: black bar, inspired by ref */
+.p1-add{
+  width:100%;
+  background:#16140F;
+  color:#F5F1E7;
+  border:1.5px solid #16140F;
+  padding:18px 20px;
+  font-family:var(--font-mono);
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:2px;
+  margin:0 0 0 0;
+  transition:all .18s ease;
+  display:block;
+}
+.p1-add:hover{
+  background:#000;
+  border-color:#000;
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(22,20,15,0.18);
+}
+.p1-add:active{transform:translateY(0); box-shadow:none;}
+.p1-add.added{
+  background:#F5F1E7;
+  color:#16140F;
+  border-color:#16140F;
+}
+/* specs static block — replaces DESCRIPTION */
+.p1-specs{
+  padding:14px 0 14px 0;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.p1-spec-row{
+  display:grid;
+  grid-template-columns: 128px 1fr;
+  gap:20px;
+  align-items:baseline;
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.p1-spec-row span:first-child{color:#5B5F5A;}
+.p1-spec-row span:last-child{color:#16140F; font-weight:600;}
+.p1-accordion{
+  border-top:1px solid rgba(22,20,15,0.14);
+  border-top-style:dashed;
+  border-top-width:1px;
+  /* use dashed via repeating gradient fallback — keep simple solid dashed */
+}
+.p1-accordion{
+  border-top:1px dashed rgba(22,20,15,0.22);
+}
+.p1-accordion:last-child{
+  border-bottom:1px dashed rgba(22,20,15,0.22);
+}
+.p1-acc-btn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:none;
+  border:none;
+  padding:16px 0;
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink);
+  cursor:pointer;
+  font-weight:700;
+}
+.p1-acc-btn .plus{
+  font-size:17px;
+  color:var(--ink);
+  transition:transform .2s;
+  font-weight:400;
+}
+.p1-acc-btn.open .plus{transform:rotate(45deg);}
+.p1-acc-panel{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .28s ease, padding .2s ease;
+  font-size:14px;
+  line-height:1.75;
+  color:#5B5F5A;
+  padding:0;
+}
+.p1-acc-panel.open{
+  max-height:300px;
+  padding:0 0 14px 0;
+}
+/* size guide modal */
+.p1-modal{
+  position:fixed; inset:0; z-index:500;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  opacity:0; pointer-events:none; transition:opacity .22s ease;
+  background:rgba(22,20,15,0.48);
+  backdrop-filter:blur(2px);
+}
+.p1-modal.show{opacity:1; pointer-events:auto;}
+.p1-modal-card{
+  background:#F5F1E7; border:1.5px solid var(--ink);
+  width:100%; max-width:560px; max-height:90vh; overflow-y:auto;
+  padding:26px 26px 24px;
+  position:relative;
+  box-shadow:0 18px 44px rgba(0,0,0,0.28);
+}
+.p1-modal-card h3{
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  margin:0 0 6px;
+  font-size:18px; font-weight:900;
+  letter-spacing:0.02em;
+}
+.p1-modal-note{font-size:11px; color:#5B5F5A; margin-bottom:16px; line-height:1.6;}
+.p1-size-table{
+  width:100%; border-collapse:collapse;
+  font-family:var(--font-mono); font-size:14px;
+}
+.p1-size-table th{
+  text-align:left; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:#5B5F5A; padding:8px 8px; border-bottom:1px solid var(--ink);
+}
+.p1-size-table td{
+  padding:10px 8px; border-bottom:1px dashed rgba(22,20,15,0.18);
+  color:var(--ink);
+}
+.p1-size-table tr:last-child td{border-bottom:none;}
+.p1-modal-close{
+  position:absolute; top:14px; right:14px; background:none; border:none;
+  font-size:18px; cursor:pointer; color:var(--ink);
+}
+.p1-modal-foot{
+  margin-top:14px; font-size:11px; color:#8A8577; line-height:1.6;
+}
+@media (min-width: 981px){
+  .p1-info{
+    border-left:none;
+    padding-left:28px;
+  }
+}
+@media (max-width: 980px){
+  .p1-layout{grid-template-columns:1fr; gap:28px;}
+  .p1-gallery{grid-template-columns:82px 1fr;}
+  .p1-thumbs{flex-direction:column;}
+  .p1-thumb{width:82px; height:82px;}
+}
+@media (max-width: 600px){
+  .p1-gallery{grid-template-columns:1fr;}
+  .p1-thumbs{
+    flex-direction:row;
+    order:2;
+  }
+  .p1-main-img{order:1;}
+  .p1-thumb{width:84px; height:84px;}
+  .p1-wrap{padding:0 16px;}
+  .p1-title{font-size:21px;}
+  .p1-spec-row{grid-template-columns: 100px 1fr;}
+}
+</style>
+</head>
+<body class="p1-page">
+
+<header class="site">
+  <div class="nav">
+    <nav class="nav-left">
+      <a href="paperchasers.html#catalog">CATALOG</a>
+      <a href="paperchasers.html#lookbook">LOOKBOOK</a>
+      <a href="paperchasers.html#about">ABOUT</a>
+    </nav>
+    <div class="nav-center">
+      <a href="paperchasers.html" aria-label="PaperChasers home">
+        <img src="logox2.png" alt="PaperChasers" class="logo-main">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+      <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+        <span class="cart-text">CART (<span class="cart-count" id="cartCount">0</span>)</span>
+        <svg class="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M6 8h12l-1 12H7L6 8Z"/>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="p1-main">
+  <div class="p1-wrap">
+    <a class="p1-back" href="paperchasers.html#catalog">← Back to Catalog</a>
+    <div class="p1-layout">
+      <!-- LEFT : gallery -->
+      <div class="p1-gallery">
+        <div class="p1-thumbs" id="p1Thumbs">
+          <button class="p1-thumb active" data-src="images/longsleeve.jpg" aria-label="View 1"><img src="images/longsleeve.jpg" alt="thumb 1"></button>
+          <button class="p1-thumb" data-src="images/longsleeve.jpg" aria-label="View 2"><img src="images/longsleeve.jpg" alt="thumb 2" style="object-position:center top;"></button>
+          <button class="p1-thumb" data-src="images/longsleeve.jpg" aria-label="View 3"><img src="images/longsleeve.jpg" alt="thumb 3" style="object-position:center 30%;"></button>
+        </div>
+        <div class="p1-main-img" id="p1MainImg">
+          <img id="p1Img" src="images/longsleeve.jpg" alt="Statue Waffle Longsleeve">
+        </div>
+      </div>
+
+      <!-- RIGHT : info -->
+      <div class="p1-info">
+        <h1 class="p1-title">STATUE WAFFLE LONGSLEEVE</h1>
+        <div class="p1-price">6 900 ₽</div>
+        <div class="p1-divider"></div>
+
+        <div class="p1-size-head">
+          <div class="p1-label">SIZE</div>
+          <button class="p1-size-guide-btn" id="sizeGuideBtn">SIZE GUIDE</button>
+        </div>
+        <div class="p1-size-row" id="sizeRow"></div>
+        <div class="p1-divider"></div>
+
+        <button class="p1-add" id="addBtn">ADD TO CART</button>
+        <div class="p1-divider-dashed" style="margin-top:16px;"></div>
+
+        <div class="p1-specs">
+          <div class="p1-spec-row"><span>MATERIAL</span><span>100% COTTON</span></div>
+          <div class="p1-spec-row"><span>FABRIC</span><span>WAFFLE 380GSM</span></div>
+          <div class="p1-spec-row"><span>FIT</span><span>RELAXED / CROPPED</span></div>
+        </div>
+        <div class="p1-divider-dashed"></div>
+
+        <div class="p1-accordion">
+          <button class="p1-acc-btn" data-acc="ship">SHIPPING <span class="plus">+</span></button>
+          <div class="p1-acc-panel" id="acc-ship">Ships in 2–3 business days. Tracked delivery. All sales final — no restocks. Carefully packed with receipt.</div>
+        </div>
+        <div class="p1-accordion">
+          <button class="p1-acc-btn" data-acc="refunds">REFUNDS <span class="plus">+</span></button>
+          <div class="p1-acc-panel" id="acc-refunds">All sales final. No returns, no exchanges. Each drop is numbered — chase responsibly. Contact hello@paperchasers.co for defects only.</div>
+        </div>
+        <div class="p1-accordion">
+          <button class="p1-acc-btn" data-acc="care">CARE <span class="plus">+</span></button>
+          <div class="p1-acc-panel" id="acc-care">Machine wash cold, inside out. Do not bleach. Tumble dry low. Do not iron print.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- SIZE GUIDE MODAL -->
+<div class="p1-modal" id="p1SizeModal" aria-hidden="true">
+  <div class="p1-modal-card">
+    <button class="p1-modal-close" id="p1SizeClose" aria-label="Close size guide">✕</button>
+    <h3>SIZE GUIDE</h3>
+    <div class="p1-modal-note">Measurements in cm · garment laid flat · model 185cm wears M<br>Замеры пришлёшь — таблицу обновлю 1-в-1.</div>
+    <table class="p1-size-table">
+      <thead><tr><th>SIZE</th><th>CHEST</th><th>LENGTH</th><th>SLEEVE</th></tr></thead>
+      <tbody>
+        <tr><td>S</td><td>52</td><td>66</td><td>62</td></tr>
+        <tr><td>M</td><td>55</td><td>68</td><td>64</td></tr>
+        <tr><td>L</td><td>58</td><td>70</td><td>66</td></tr>
+        <tr><td>XL</td><td>61</td><td>72</td><td>68</td></tr>
+      </tbody>
+    </table>
+    <div class="p1-modal-foot">Placeholder table — скинь точные замеры, подменю без изменения вёрстки.</div>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand-line">PaperChasers</div>
+        <p>Streetwear for the grind. Small drops, no restocks, every piece numbered like a receipt.</p>
+        <div class="barcode"></div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:paperchasersclothes@gmail.com">paperchasersclothes@gmail.com</a></li>
+          <li>Support: Mon–Fri, 10:00–18:00</li>
+          <li>TG Manager - @pcorders</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://t.me/paperchasersclub" target="_blank" rel="noopener">Telegram — paperchasersclub</a></li>
+          <li><a href="https://www.instagram.com/paperchasersclothes/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener">Instagram — @paperchasersclothes</a></li>
+          <li><a href="https://www.tiktok.com/@paperchasersclub?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener">TikTok — @paperchasersclub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 PAPERCHASERS. NO REFUNDS ON PROOF OF GRIND.</span>
+      <span><a href="privacy-policy.html" style="color:inherit;">PRIVACY POLICY</a>&nbsp;&nbsp;<a href="offer.html" style="color:inherit;">ПУБЛИЧНАЯ ОФЕРТА</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your Receipt</h3>
+    <button class="close-x" id="closeDrawer" aria-label="Close cart">✕</button>
+  </div>
+  <div class="receipt-meta" id="receiptDate"></div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>TOTAL</span><span id="cartTotal">0 ₽</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Tear Off &amp; Checkout</button>
+    <div class="drawer-barcode"></div>
+  </div>
+</div>
+
+<div class="modal" id="checkoutModal">
+  <div class="modal-card" id="checkoutCard"></div>
+</div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>const PRODUCT_ID = 1;</script>
+<script src="product.js"></script>
+<script>
+(function(){
+  const thumbs = document.querySelectorAll('.p1-thumb');
+  const mainImg = document.getElementById('p1Img');
+  thumbs.forEach(t=>{
+    t.addEventListener('click', ()=>{
+      thumbs.forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      const src = t.getAttribute('data-src');
+      if(mainImg) mainImg.src = src;
+    });
+  });
+  // size guide modal
+  const sgBtn = document.getElementById('sizeGuideBtn');
+  const sgModal = document.getElementById('p1SizeModal');
+  const sgClose = document.getElementById('p1SizeClose');
+  function openSG(){ sgModal.classList.add('show'); sgModal.setAttribute('aria-hidden','false'); }
+  function closeSG(){ sgModal.classList.remove('show'); sgModal.setAttribute('aria-hidden','true'); }
+  if(sgBtn) sgBtn.addEventListener('click', openSG);
+  if(sgClose) sgClose.addEventListener('click', closeSG);
+  if(sgModal) sgModal.addEventListener('click', (e)=>{ if(e.target===sgModal) closeSG(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeSG(); });
+  // accordions — only SHIPPING / REFUNDS now
+  document.querySelectorAll('.p1-acc-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const key = btn.getAttribute('data-acc');
+      const panel = document.getElementById('acc-'+key);
+      const isOpen = panel.classList.contains('open');
+      document.querySelectorAll('.p1-acc-panel').forEach(p=>{p.classList.remove('open'); p.style.maxHeight='0';});
+      document.querySelectorAll('.p1-acc-btn').forEach(b=>{b.classList.remove('open'); b.querySelector('.plus').textContent='+';});
+      if(!isOpen){
+        panel.classList.add('open');
+        btn.classList.add('open');
+        btn.querySelector('.plus').textContent='×';
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+  // select M by default (as in previous photo)
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(()=>{
+      const row = document.getElementById('sizeRow');
+      if(!row) return;
+      const btns = row.querySelectorAll('.size-btn');
+      btns.forEach(b=>{ if(b.textContent.trim()==='M') b.click(); });
+    }, 80);
+  });
+})();
+</script>
+</body>
+</html>
