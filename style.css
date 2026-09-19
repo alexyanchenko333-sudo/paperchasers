@@ -1327,6 +1327,15 @@ footer li{margin-bottom:9px;}
   .filter-btn{min-height:40px; padding:10px 18px; font-size:11px;}
   .card .sizes .size-btn{min-width:44px; min-height:44px; padding:12px 8px; font-size:12px;}
   .add-btn{min-height:48px; font-size:11px;}
+  /* iOS Safari paints default <button> text blue (buttons don't inherit
+     color — only font-family is set globally). Pin ink in every state. */
+  .add-btn,
+  .add-btn:link, .add-btn:visited,
+  .add-btn:hover, .add-btn:active, .add-btn:focus{
+    color:var(--ink);
+    -webkit-text-fill-color:var(--ink);
+  }
+  .qty-row button{color:var(--ink); -webkit-text-fill-color:var(--ink);}
   .drawer{width:min(420px,94vw);}
   .drawer-items{padding:12px 18px;}
   .drawer-head{padding:18px 18px 14px;}
@@ -1396,12 +1405,26 @@ footer li{margin-bottom:9px;}
   .menu-toggle{
     color:var(--ink);
     -webkit-text-fill-color:var(--ink);
+    /* No square: the base rule draws border:2px solid ink (desktop hides
+       the button entirely). Keep padding so the tap area stays 44px. */
+    border:none;
+    background:none;
+    outline:none;
+    box-shadow:none;
+    border-radius:0;
+    -webkit-appearance:none;
+    appearance:none;
   }
   .menu-toggle:hover,
   .menu-toggle:active,
-  .menu-toggle:focus{
+  .menu-toggle:focus,
+  .menu-toggle:focus-visible{
     color:var(--ink);
     -webkit-text-fill-color:var(--ink);
     -webkit-tap-highlight-color:transparent;
+    border:none;
+    background:none;
+    outline:none;
+    box-shadow:none;
   }
 }
