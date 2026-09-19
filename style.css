@@ -856,7 +856,7 @@ section{padding:76px 0 86px;}
   color:#0A0A0A;
 }
 @media (max-width: 960px){
-  .about-body.ref{ grid-template-columns:1fr; }
+  .about-body.ref{ grid-template-columns:1fr !important; }
   .ref-brand-title{ font-size:32px; }
   .ref-left{ border-right:none; padding-right:0; padding-bottom:18px; border-bottom:0.7px solid rgba(22,20,15,0.10); }
   .ref-center{ border-right:none; padding:18px 0; border-bottom:0.7px solid rgba(22,20,15,0.10); }
@@ -1346,8 +1346,11 @@ footer li{margin-bottom:9px;}
 }
 
 /* 8. ABOUT mobile — deliberate small-screen typesetting, same concept.
-   Single column: philosophy → circles/THE CHASE → archive/follow. */
+   Single column: philosophy → circles/THE CHASE → archive/follow.
+   !important is required: a global desktop rule above sets the 3-column
+   grid with !important, so a plain override would lose. */
 @media (max-width: 960px){
+  .about-body.ref{grid-template-columns:1fr !important; gap:0 !important;}
   .ref-brand-title{font-size:clamp(30px, 9.5vw, 38px) !important; line-height:0.95 !important;}
   .ref-brand-sub{font-size:10.5px !important; line-height:1.6;}
   .ref-text p{font-size:14.5px !important; line-height:1.65 !important;}
@@ -1379,4 +1382,26 @@ footer li{margin-bottom:9px;}
   .hero .eyebrow{font-size:10.5px; line-height:1.7;}
   .card h3{font-size:14px;}
   .modal-card{padding:28px 22px;}
+}
+
+/* Burger tap highlight (iOS): no blue flash, same ink as the cart icon.
+   .menu-toggle is a <button> with a text glyph; .cart-btn uses
+   color:var(--ink), so the burger is pinned to the same variable in
+   every state. Mobile-only; desktop untouched. */
+@media (max-width: 720px){
+  .menu-toggle,
+  .cart-btn{
+    -webkit-tap-highlight-color:transparent;
+  }
+  .menu-toggle{
+    color:var(--ink);
+    -webkit-text-fill-color:var(--ink);
+  }
+  .menu-toggle:hover,
+  .menu-toggle:active,
+  .menu-toggle:focus{
+    color:var(--ink);
+    -webkit-text-fill-color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
 }
