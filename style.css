@@ -856,8 +856,11 @@ section{padding:76px 0 86px;}
   color:#0A0A0A;
 }
 @media (max-width: 960px){
-  .about-body.ref{ grid-template-columns:1fr 1fr 1fr; }
+  .about-body.ref{ grid-template-columns:1fr; }
   .ref-brand-title{ font-size:32px; }
+  .ref-left{ border-right:none; padding-right:0; padding-bottom:18px; border-bottom:0.7px solid rgba(22,20,15,0.10); }
+  .ref-center{ border-right:none; padding:18px 0; border-bottom:0.7px solid rgba(22,20,15,0.10); }
+  .ref-right{ padding-left:0; padding-top:18px; }
 }
 @media (max-width: 760px){
   .about-body.ref{ grid-template-columns:1fr; gap:0; }
@@ -1342,8 +1345,9 @@ footer li{margin-bottom:9px;}
   #cdekMap{height:320px !important;}
 }
 
-/* 8. ABOUT mobile — deliberate small-screen typesetting, same concept */
-@media (max-width: 760px){
+/* 8. ABOUT mobile — deliberate small-screen typesetting, same concept.
+   Single column: philosophy → circles/THE CHASE → archive/follow. */
+@media (max-width: 960px){
   .ref-brand-title{font-size:clamp(30px, 9.5vw, 38px) !important; line-height:0.95 !important;}
   .ref-brand-sub{font-size:10.5px !important; line-height:1.6;}
   .ref-text p{font-size:14.5px !important; line-height:1.65 !important;}
