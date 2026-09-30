@@ -141,7 +141,7 @@
         </div>
         <label class="consent-row">
           <input type="checkbox" id="consentBox" required>
-          <span>I agree to the <a href="../privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and the processing of my details above to fulfil this order.</span>
+          <span>I agree to the <a href="../privacy-policy/ target="_blank" rel="noopener">Privacy Policy</a> and the processing of my details above to fulfil this order.</span>
         </label>
         <div class="total-row"><span>Total Due</span><span>${total.toLocaleString('ru-RU')} ₽</span></div>
         <button class="place-btn" type="submit">Place Order</button>
