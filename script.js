@@ -50,11 +50,11 @@
         : svgArt(p.hue, p.id);
       card.innerHTML = `
         ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
-        <a class="card-link-name" href="product-${p.id}.html">
+        <a class="card-link-name" href="product/${p.slug}/">
           <div class="art" style="${p.img ? '' : `background:${p.hue}22`}">${artInner}</div>
         </a>
         <div class="body">
-          <a class="card-link-name" href="product-${p.id}.html"><h3>${p.name}</h3></a>
+          <a class="card-link-name" href="product/${p.slug}/"><h3>${p.name}</h3></a>
           <div class="price">${p.price.toLocaleString('ru-RU')} ₽</div>
           <div class="sizes" data-id="${p.id}"></div>
           <button class="add-btn" data-id="${p.id}">Add to Cart</button>
@@ -214,7 +214,7 @@
         </div>
         <label class="consent-row">
           <input type="checkbox" id="consentBox" required>
-          <span>I agree to the <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a> and the processing of my details above to fulfil this order.</span>
+          <span>I agree to the <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> and the processing of my details above to fulfil this order.</span>
         </label>
         <div class="total-row"><span>Total Due</span><span>${total.toLocaleString('ru-RU')} ₽</span></div>
         <button class="place-btn" type="submit">Place Order</button>
@@ -249,7 +249,7 @@
     document.getElementById('checkoutBtn').onclick = async ()=>{
       const cart = await cartGet();
       if(cart.length===0) return;
-      window.location.href = 'checkout.html';
+      window.location.href = '/checkout/';
     };
   }
 
